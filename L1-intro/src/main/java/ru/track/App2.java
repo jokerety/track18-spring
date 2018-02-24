@@ -13,7 +13,6 @@ public class App2 {
 
     public static void main(String[] args) throws Exception{
         HttpResponse <JsonNode> r = Unirest.post(URL)
-                .header("accept", "application/json")
                 .field (FIELD_NAME,"Roma")
                 .field (FIELD_GITHUB, "https://github.com/jokerety")
                 .field (FIELD_EMAIL, "maslov.roman.phystech@mail.ru")

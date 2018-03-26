@@ -1,7 +1,6 @@
 package ru.track.cypher;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,12 +21,22 @@ public class Decoder {
         Map<Character, Integer> domainHist = createHist(domain);
         Map<Character, Integer> encryptedDomainHist = createHist(encryptedDomain);
 
+
         cypher = new LinkedHashMap<>();
 
+        Iterator<Map.Entry<Character, Integer>> itr1 = encryptedDomainHist.entrySet().iterator();
+        Iterator<Map.Entry<Character, Integer>> itr2 = domainHist.entrySet().iterator();
 
+        while (itr1.hasNext())
+        {
+            Map.Entry<Character, Integer> entryOriginal = itr1.next();
+            Map.Entry<Character, Integer> openKey = itr2.next();
+            cypher.put (entryOriginal.getKey(), openKey.getKey());
+        }
     }
 
-    public Map<Character, Character> getCypher() {
+    public Map<Character, Character> getCypher()
+    {
         return cypher;
     }
 
@@ -38,8 +47,23 @@ public class Decoder {
      * @return расшифровка
      */
     @NotNull
-    public String decode(@NotNull String encoded) {
-        return null;
+    public String decode(@NotNull String encoded)
+    {
+        StringBuilder strBuilder = new StringBuilder(encoded.length());
+
+        for (int i = 0; i < encoded.length(); i++)
+        {
+            if (Character.isLetter(encoded.charAt(i)))
+            {
+                strBuilder.append(cypher.get(encoded.charAt(i)));
+            }
+            else
+                {
+                    strBuilder.append(encoded.charAt(i));
+
+            }
+        }
+        return strBuilder.toString();
     }
 
     /**
@@ -52,8 +76,36 @@ public class Decoder {
      * Мапа отсортирована по частоте. При итерировании на первой позиции наиболее частая буква
      */
     @NotNull
-    Map<Character, Integer> createHist(@NotNull String text) {
-        return null;
+    Map<Character, Integer> createHist(@NotNull String text)
+    {
+        Map <Character, Integer> result = new LinkedHashMap<>();
+
+        for (int i  = 0; i < text.length(); i++)
+        {
+            if (Character.isLetter(text.charAt(i)))
+            {
+                if (result.containsKey(Character.toLowerCase(text.charAt(i))))
+                {
+                    result.put(Character.toLowerCase(text.charAt(i)), result.get(Character.toLowerCase(text.charAt(i))) + 1);
+                }
+                else
+                    {
+                    result.put(Character.toLowerCase(text.charAt(i)), 1);
+                }
+            }
+        }
+        List<Map.Entry<Character,Integer>> listec = new ArrayList<>(result.entrySet());
+
+        listec.sort((o1, o2) -> {
+            return o2.getValue() - o1.getValue();
+        });
+
+        Map <Character, Integer> nowRealResult = new LinkedHashMap<>();
+        for (int i = 0; i < listec.size(); i++)
+        {
+            nowRealResult.put(listec.get(i).getKey(), listec.get(i).getValue());
+        }
+        return nowRealResult;
     }
 
 }

@@ -33,7 +33,7 @@ public class DecoderTest {
 
 
     @Test
-    public void createHist() throws Exception {
+    public void createHist()  {
 
         Map<Character, Integer> hist = decoder.createHist(domain);
 

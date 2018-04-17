@@ -13,6 +13,13 @@ public class MyArrayList extends List {
 
     public MyArrayList() {
 
+<<<<<<< Updated upstream
+=======
+
+    public MyArrayList()
+    {
+        this(10);
+>>>>>>> Stashed changes
     }
 
     public MyArrayList(int capacity) {

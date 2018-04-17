@@ -22,12 +22,11 @@ public class CypherUtil {
      * @return таблицу подстановки шифра
      */
     @NotNull
-    public static Map<Character, Character> generateCypher()
-    {
-        Map <Character, Character> cypher = new HashMap<>();
+    public static Map<Character, Character> generateCypher() {
+        Map<Character, Character> cypher = new HashMap<>();
         char[] chars = SYMBOLS.toCharArray();
 
-        List <Character> shuffled = new ArrayList<Character>();
+        List<Character> shuffled = new ArrayList<Character>();
         for (char c : chars) {
             shuffled.add(c);
         }

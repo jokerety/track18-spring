@@ -35,12 +35,19 @@ public class Client {
             while (true)
             {
                 int nRead = in.read(buf);
+                if (nRead == -1)
+                {
+                    break;
+                }
                 System.out.println(new String (buf, 0 ,nRead));
             }
         }
         catch (IOException e)
         {
-            System.out.println("cannot write");
+            System.out.println("Server is not available");
+        }
+        finally {
+            IOUtils.closeQuietly(socket);
         }
 
     }
@@ -61,7 +68,10 @@ public class Client {
         }
         catch (IOException e)
         {
-            System.out.println("cannot read ");
+            System.out.println("Server is not available");
+        }
+        finally {
+            IOUtils.closeQuietly(socket);
         }
     }
 
@@ -76,10 +86,7 @@ public class Client {
         {
             throw  new RuntimeException(e);
         }
-        //finally
-        //{
-        //    IOUtils.closeQuietly(socket);
-       // }
+
 
     }
 

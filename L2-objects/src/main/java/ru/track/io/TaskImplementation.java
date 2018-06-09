@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 
 public final class TaskImplementation implements FileEncoder {
-    static int buffsize = 1023 * 8;
+    static int buffsize = 1024;
 
     /**
      * @param finPath  where to read binary data from
@@ -61,7 +61,7 @@ public final class TaskImplementation implements FileEncoder {
             bos.flush();
 
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
 
